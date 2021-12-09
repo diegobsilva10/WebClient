@@ -13,13 +13,13 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping(value = "/jokes/")
+@RequestMapping(value = "/jokes")
 public class ChuckController {
 
     @Autowired
     ChuckClient chuckClient;
 
-    @GetMapping("random")
+    @GetMapping("/random")
     @ResponseStatus(HttpStatus.OK)
     public Mono<ChuckResponse> getPiadaAleatoria (){
         return chuckClient.findAndAleatorio();
