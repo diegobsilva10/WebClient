@@ -50,7 +50,7 @@ public class ChuckClient {
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .onStatus(HttpStatus::is4xxClientError,
-                        error -> Mono.error(new RuntimeException("Verifique paramettros informados")))
+                        error -> Mono.error(new RuntimeException("Verifique parametros informados")))
                 .bodyToMono(CategoriesResponse.class);
     }
 }
