@@ -1,18 +1,17 @@
 package com.webclient.estudo.client;
 
-import com.webclient.estudo.response.CategoriesResponse;
 import com.webclient.estudo.response.ChuckResponse;
+import com.webclient.estudo.response.ListCategoriesResponse;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.http.MediaType.asMediaType;
 
 
 @Service
@@ -42,7 +41,7 @@ public class ChuckClient {
                 .bodyToMono(ChuckResponse.class);
     }
 
-    public Mono<CategoriesResponse> findAndCategories(){
+    public Flux<ListCategoriesResponse> getCategories(){
         log.info("Buscando categorias");
         return client
                 .get()
@@ -51,8 +50,9 @@ public class ChuckClient {
                 .retrieve()
                 .onStatus(HttpStatus::is4xxClientError,
                         error -> Mono.error(new RuntimeException("Verifique parametros informados")))
-                .bodyToMono(CategoriesResponse.class);
+                .bodyToFlux(ListCategoriesResponse.class);
     }
+
 }
 
 
