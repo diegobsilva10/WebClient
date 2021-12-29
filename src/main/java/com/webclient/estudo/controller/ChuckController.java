@@ -1,6 +1,7 @@
 package com.webclient.estudo.controller;
 
 import com.webclient.estudo.client.ChuckClient;
+import com.webclient.estudo.response.CategoriesResponse;
 import com.webclient.estudo.response.ChuckResponse;
 import com.webclient.estudo.response.ListCategoriesResponse;
 import lombok.AllArgsConstructor;
@@ -20,8 +21,6 @@ public class ChuckController {
     @Autowired
     ChuckClient chuckClient;
 
-
-
     @GetMapping("/random")
     @ResponseStatus(HttpStatus.OK)
     public Mono<ChuckResponse> getPiadaAleatoria() {
@@ -31,7 +30,7 @@ public class ChuckController {
 
     @GetMapping("/categories")
     @ResponseStatus(HttpStatus.OK)
-    public Flux<ListCategoriesResponse> getListCategories() {
+    public Flux<CategoriesResponse> getListCategories() {
         return chuckClient.getCategories();
 
 

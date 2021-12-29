@@ -1,5 +1,6 @@
 package com.webclient.estudo.client;
 
+import com.webclient.estudo.response.CategoriesResponse;
 import com.webclient.estudo.response.ChuckResponse;
 import com.webclient.estudo.response.ListCategoriesResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +42,7 @@ public class ChuckClient {
                 .bodyToMono(ChuckResponse.class);
     }
 
-    public Flux<ListCategoriesResponse> getCategories(){
+    public Flux<CategoriesResponse> getCategories(){
         log.info("Buscando categorias");
         return client
                 .get()
@@ -50,8 +51,9 @@ public class ChuckClient {
                 .retrieve()
                 .onStatus(HttpStatus::is4xxClientError,
                         error -> Mono.error(new RuntimeException("Verifique parametros informados")))
-                .bodyToFlux(ListCategoriesResponse.class);
+                .bodyToFlux(CategoriesResponse.class);
     }
+
 
 }
 
